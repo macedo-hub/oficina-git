@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oficina de Git &amp; GitHub — Página de teste</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%23F05033'/%3E%3Cpath d='M7 8h10M7 12h7M7 16h4' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0D1117;
+    --bg-surface: #161B22;
+    --bg-surface-2: #1C2129;
+    --border: #30363D;
+    --border-soft: #21262D;
+    --text: #E6EDF3;
+    --text-dim: #8B949E;
+    --text-faint: #565D66;
+    --git: #F05033;
+    --git-soft: rgba(240, 80, 51, 0.12);
+    --aws: #FF9900;
+    --aws-soft: rgba(255, 153, 0, 0.1);
+    --ok: #3FB950;
+    --link: #58A6FF;
+    --radius: 8px;
+    --radius-lg: 14px;
+    --font-head: 'Sora', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --max: 760px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(240, 80, 51, 0.10), transparent),
+      radial-gradient(ellipse 700px 400px at 90% 15%, rgba(255, 153, 0, 0.06), transparent);
+    color: var(--text);
+    font-family: var(--font-head);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--link); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- header ---------- */
+  header.site {
+    border-bottom: 1px solid var(--border-soft);
+    padding: 20px 0;
+  }
+  .site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 0.95rem; color: var(--text-dim); }
+  .brand svg { flex-shrink: 0; }
+  .brand strong { color: var(--text); font-weight: 500; }
+  .repo-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 12px 6px 10px;
+    text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .repo-pill:hover { border-color: var(--text-faint); color: var(--text); }
+
+  /* ---------- hero ---------- */
+  .hero { padding: 72px 0 48px; }
+  .hero .date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.02em;
+    color: var(--ok);
+    background: rgba(63, 185, 80, 0.1);
+    border: 1px solid rgba(63, 185, 80, 0.25);
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(2.1rem, 5vw, 3.1rem);
+    line-height: 1.12;
+    margin: 0 0 16px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--git);
+  }
+  .hero p.lede {
+    font-size: 1.08rem;
+    color: var(--text-dim);
+    max-width: 52ch;
+    margin: 0 0 30px;
+  }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 11px 18px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .btn-primary { background: var(--git); color: #fff; }
+  .btn-primary:hover { background: #d8431f; }
+  .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+  .btn-ghost:hover { border-color: var(--text-faint); }
+
+  /* ---------- terminal ---------- */
+  .terminal {
+    margin-top: 44px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 20px 50px -20px rgba(0,0,0,0.6);
+  }
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 12px 16px;
+    background: var(--bg-surface-2);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .terminal-bar .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot-r { background: #ff5f56; }
+  .dot-y { background: #ffbd2e; }
+  .dot-g { background: #27c93f; }
+  .terminal-bar .title {
+    margin-left: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--text-faint);
+  }
+  .terminal-body {
+    padding: 22px 20px 26px;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    overflow-x: auto;
+  }
+  .terminal-body .line { white-space: pre; margin: 0 0 2px; }
+  .terminal-body .blank { height: 12px; }
+  .prompt { color: var(--ok); }
+  .path { color: var(--link); }
+  .cmd { color: var(--text); }
+  .out { color: var(--text-dim); }
+  .hash { color: var(--aws); }
+  .cursor {
+    display: inline-block;
+    width: 7px;
+    height: 15px;
+    background: var(--text);
+    margin-left: 2px;
+    vertical-align: -2px;
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+
+  /* ---------- section shell ---------- */
+  section { padding: 54px 0; border-top: 1px solid var(--border-soft); }
+  .section-label {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    margin: 0 0 10px;
+  }
+  section h2 {
+    font-size: 1.55rem;
+    margin: 0 0 14px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- instructor card ---------- */
+  .instructor-card {
+    display: flex;
+    gap: 20px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--aws);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+  }
+  .instructor-icon {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: var(--aws-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--aws);
+  }
+  .instructor-card h3 { margin: 0 0 4px; font-size: 1.2rem; }
+  .instructor-card .role { color: var(--text-dim); font-size: 0.92rem; margin: 0 0 14px; }
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+  .badge.aws { border-color: rgba(255,153,0,0.35); color: var(--aws); }
+  .badge.knex { border-color: var(--border); color: var(--text); }
+
+  /* ---------- author / projects ---------- */
+  .author-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .avatar-mark {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--git-soft);
+    color: var(--git);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    font-weight: 600;
+  }
+  .author-meta .name { font-weight: 600; font-size: 1.02rem; }
+  .author-meta .role { color: var(--text-dim); font-size: 0.86rem; }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 14px;
+  }
+  .project-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+  }
+  .project-card .proj-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; color: var(--text-faint); }
+  .project-card h4 { margin: 0; font-size: 0.98rem; color: var(--text); }
+  .project-card p { margin: 0 0 12px; font-size: 0.86rem; color: var(--text-dim); }
+  .stack-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-faint);
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    padding: 3px 9px;
+  }
+
+  /* ---------- deploy note ---------- */
+  .deploy-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--bg-surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+  }
+  .deploy-note svg { color: var(--ok); flex-shrink: 0; margin-top: 2px; }
+  .deploy-note p { margin: 0; color: var(--text-dim); font-size: 0.92rem; }
+  .deploy-note code {
+    font-family: var(--font-mono);
+    background: var(--bg-surface-2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--text);
+    font-size: 0.85em;
+  }
+
+  /* ---------- footer ---------- */
+  footer {
+    border-top: 1px solid var(--border-soft);
+    padding: 30px 0 42px;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.82rem;
+    color: var(--text-faint);
+  }
+  .footer-inner a { color: var(--text-dim); text-decoration: none; }
+  .footer-inner a:hover { color: var(--text); }
+
+  @media (max-width: 560px) {
+    .hero { padding: 48px 0 36px; }
+    .instructor-card { flex-direction: column; }
+    .hero-actions { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap site-header-inner">
+    <div class="brand">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 9 12 6 15"></polyline>
+        <line x1="12" y1="15" x2="18" y2="15"></line>
+        <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+      </svg>
+      oficina-git / <strong>index.html</strong>
+    </div>
+    <a class="repo-pill" href="https://github.com/macedo-hub/oficina-git" target="_blank" rel="noopener">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+      </svg>
+      macedo-hub/oficina-git
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="hero" style="border-top:none; padding-top:72px;">
+      <span class="date-badge">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 14"></polyline></svg>
+        21 de outubro de 2026
+      </span>
+      <h1>Testando o primeiro <em>commit</em> da oficina de Git &amp; GitHub</h1>
+      <p class="lede">Esta é a página de teste que preparei para acompanhar a oficina ministrada pela Monick Azevedo — do primeiro <code style="font-family:var(--font-mono);">git clone</code> até o deploy no GitHub Pages.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://github.com/macedo-hub/oficina-git" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          Ver repositório
+        </a>
+        <a class="btn btn-ghost" href="#instrutora">
+          Sobre a oficina
+        </a>
+      </div>
+
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+          <span class="title">lucas@parelhas — git bash</span>
+        </div>
+        <div class="terminal-body">
+          <p class="line"><span class="prompt">$</span> <span class="cmd">git clone https://github.com/macedo-hub/oficina-git.git</span></p>
+          <p class="line out">Clonando para 'oficina-git'...</p>
+          <p class="line out">remote: Enumerating objects: 12, done.</p>
+          <p class="line out">Unpacking objects: 100% (12/12), concluído.</p>
+          <div class="blank"></div>
+          <p class="line"><span class="prompt">$</span> <span class="cmd">cd oficina-git</span></p>
+          <div class="blank"></div>
+          <p class="line"><span class="prompt">$</span> <span class="cmd">git add .</span></p>
+          <div class="blank"></div>
+          <p class="line"><span class="prompt">$</span> <span class="cmd">git commit -m "feat: pagina de teste da oficina de git"</span></p>
+          <p class="line out">[<span class="hash">main a1b2c3d</span>] feat: pagina de teste da oficina de git</p>
+          <p class="line out"> 1 file changed, 248 insertions(+)</p>
+          <div class="blank"></div>
+          <p class="line"><span class="prompt">$</span> <span class="cmd">git push origin main</span></p>
+          <p class="line out">Enumerando objetos: 4, concluído.</p>
+          <p class="line out">To github.com:macedo-hub/oficina-git.git</p>
+          <p class="line out">   e4f5g6h..a1b2c3d  main -&gt; main</p>
+          <div class="blank"></div>
+          <p class="line"><span class="prompt">$</span> <span class="cursor"></span></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="instrutora">
+      <p class="section-label">// instrutora</p>
+      <h2>Quem está ministrando a oficina</h2>
+      <div class="instructor-card">
+        <div class="instructor-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M17.5 19a4.5 4.5 0 0 0 0-9 6 6 0 0 0-11.8-1.5A4 4 0 0 0 6 16h.5"></path>
+            <path d="M12 12v9"></path>
+            <path d="m9 18 3 3 3-3"></path>
+          </svg>
+        </div>
+        <div>
+          <h3>Monick Azevedo</h3>
+          <p class="role">Instrutora da oficina de Git &amp; GitHub</p>
+          <div class="badge-row">
+            <span class="badge aws">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"></path></svg>
+              Líder estudantil AWS Builder
+            </span>
+            <span class="badge knex">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 2 7l10 5 10-5-10-5Z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+              Presidente do projeto Knex
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">// autor</p>
+      <h2>Sobre quem fez este teste</h2>
+      <div class="author-line">
+        <div class="avatar-mark">LE</div>
+        <div class="author-meta">
+          <div class="name">Lucas Emanuel</div>
+          <div class="role">Técnico em Informática · IFPB Campus Santa Luzia</div>
+        </div>
+      </div>
+
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="proj-top">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <h4>MapsIF</h4>
+          </div>
+          <p>Guia digital interativo do campus, com visualização 360° dos ambientes.</p>
+          <span class="stack-tag">Android · Kotlin</span>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-top">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"></path></svg>
+            <h4>Studay</h4>
+          </div>
+          <p>Plataforma de estudos com Pomodoro, flashcards, resumos e quiz estilo ENEM.</p>
+          <span class="stack-tag">PHP</span>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-top">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path><path d="M3 6h18"></path><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+            <h4>Seis</h4>
+          </div>
+          <p>Loja virtual de roupas — interface completa construída do zero.</p>
+          <span class="stack-tag">HTML · CSS · JS</span>
+        </div>
+
+        <div class="project-card">
+          <div class="proj-top">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="8" rx="2"></rect><rect x="2" y="13" width="20" height="8" rx="2"></rect><line x1="6" y1="7" x2="6.01" y2="7"></line><line x1="6" y1="17" x2="6.01" y2="17"></line></svg>
+            <h4>Homelab</h4>
+          </div>
+          <p>Servidor doméstico próprio, com foco em armazenamento e mídia.</p>
+          <span class="stack-tag">Linux · self-hosted</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">// próximo passo</p>
+      <h2>Deploy no GitHub Pages</h2>
+      <div class="deploy-note">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"></path></svg>
+        <p>Depois do <code>git push</code>, é só ativar o Pages em <strong style="color:var(--text);">Settings → Pages</strong> do repositório, apontando para a branch <code>main</code>, pasta <code>/root</code>. O site fica no ar em <code>macedo-hub.github.io/oficina-git</code>.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>Lucas Emanuel · teste da oficina de Git &amp; GitHub · 21/10/2026</span>
+    <a href="https://github.com/macedo-hub/oficina-git" target="_blank" rel="noopener">github.com/macedo-hub/oficina-git ↗</a>
+  </div>
+</footer>
+
+</body>
+</html>
